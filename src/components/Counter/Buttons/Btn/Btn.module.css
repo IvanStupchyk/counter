@@ -1,0 +1,30 @@
+.btn_container {
+    height: 40px;
+    width: 100%;
+    border: 2px solid #03c1c1;
+    box-sizing: border-box;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    margin: 5px;
+    padding: 1px;
+    box-sizing: border-box;
+    height: 25px;
+    width: 55px;
+    border-radius: 3px;
+    background-color: #03c1c1;
+    outline: none;
+    border: none;
+}
+
+.btn:hover {
+    opacity: .7;
+}
+
+.btn:active {
+    color: #fff;
+}
