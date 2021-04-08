@@ -1,0 +1,26 @@
+.scoreboard_container {
+    padding: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    height: 120px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #03c1c1;
+    border: 2px #03c1c1 solid;
+    border-radius: 3px;
+}
+
+.amount {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.message_set_value {
+    font-size: 18px;
+}
+
+.limit {
+    color: red;
+}

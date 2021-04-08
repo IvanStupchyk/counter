@@ -1,26 +1,84 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Counter} from "./components/Counter/Counter";
+import {CounterSettings} from "./components/CounterSettings/CounterSettings";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const JsonValues = localStorage.getItem('Counter Values')
+    const CounterValues = JsonValues && JSON.parse(JsonValues)
+
+    const [intermediateMinValue, setIntermediateMinValue] = useState<number>(CounterValues.minValue)
+    const [intermediateMaxValue, setIntermediateMaxValue] = useState<number>(CounterValues.maxValue)
+
+    const [minValue, setMinValue] = useState<number>(intermediateMinValue)
+    const [maxValue, setMaxValue] = useState<number>(intermediateMaxValue)
+
+    const [counter, setCounter] = useState<number>(minValue)
+
+    const [changeValue, setChangeValue] = useState<boolean>(false)
+
+    const getStateValues = (state: boolean) => {
+        setChangeValue(state)
+    }
+
+    const increaseCounter = () => {
+        counter < maxValue && setCounter(prev => prev + 1)
+    }
+
+    const inputMaxError = intermediateMaxValue < 0 || intermediateMaxValue <= intermediateMinValue
+    const inputMinError = intermediateMinValue < 0 || intermediateMinValue >= intermediateMaxValue
+    const errorMessage = inputMinError || inputMaxError
+
+    const resetCounter = () => {
+        setCounter(minValue)
+    }
+
+    const changeMaxValue = (value: string) => {
+        setIntermediateMaxValue(+value)
+    }
+
+    const changeMinValue = (value: string) => {
+        setIntermediateMinValue(+value)
+    }
+
+    const setValues = () => {
+        if (!errorMessage) {
+            setMinValue(intermediateMinValue)
+            setMaxValue(intermediateMaxValue)
+            setCounter(intermediateMinValue)
+            getStateValues(false)
+        }
+    }
+
+    return (
+        <div className="App">
+            <CounterSettings
+                intermediateMinValue={intermediateMinValue}
+                intermediateMaxValue={intermediateMaxValue}
+                changeMaxValue={changeMaxValue}
+                changeMinValue={changeMinValue}
+                setValues={setValues}
+                maxValue={maxValue}
+                minValue={minValue}
+                inputMaxError={inputMaxError}
+                inputMinError={inputMinError}
+                errorMessage={errorMessage}
+                getStateValues={getStateValues}
+                changeValue={changeValue}
+            />
+            <Counter counter={counter}
+                     increaseCounter={increaseCounter}
+                     resetCounter={resetCounter}
+                     maxValue={maxValue}
+                     minValue={minValue}
+                     intermediateMinValue={intermediateMinValue}
+                     intermediateMaxValue={intermediateMaxValue}
+                     inputMaxError={inputMaxError}
+                     inputMinError={inputMinError}
+                     changeValue={changeValue}
+            />
+        </div>
+    );
 }
 
 export default App;
