@@ -4,11 +4,12 @@ import {Counter} from "./components/Counter/Counter";
 import {CounterSettings} from "./components/CounterSettings/CounterSettings";
 
 function App() {
+
     const JsonValues = localStorage.getItem('Counter Values')
     const CounterValues = JsonValues && JSON.parse(JsonValues)
 
-    const [intermediateMinValue, setIntermediateMinValue] = useState<number>(CounterValues.minValue)
-    const [intermediateMaxValue, setIntermediateMaxValue] = useState<number>(CounterValues.maxValue)
+    const [intermediateMinValue, setIntermediateMinValue] = useState<number>(CounterValues ? CounterValues.minValue : 0)
+    const [intermediateMaxValue, setIntermediateMaxValue] = useState<number>(CounterValues ? CounterValues.maxValue : 5)
 
     const [minValue, setMinValue] = useState<number>(intermediateMinValue)
     const [maxValue, setMaxValue] = useState<number>(intermediateMaxValue)
