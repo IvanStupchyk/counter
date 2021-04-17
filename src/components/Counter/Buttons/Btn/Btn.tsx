@@ -1,7 +1,6 @@
 import React from "react";
 import s from "./Btn.module.css"
 
-
 type BtnPropsType = {
     increaseCounter?: () => void
     resetCounter?: () => void
@@ -22,13 +21,9 @@ export const Btn = (props: BtnPropsType) => {
     const disabledInc = props.btn === "inc" && props.counter === props.maxValue
     const disabledBtns = disabledSet || props.errorMessage || disabledIncReset || disabledInc
 
-    const increaseCounter = () => {
-        props.increaseCounter && props.increaseCounter()
-    }
+    const increaseCounter = () => props.increaseCounter && props.increaseCounter()
 
-    const resetCounter = () => {
-        props.resetCounter && props.resetCounter()
-    }
+    const resetCounter = () => props.resetCounter && props.resetCounter()
 
     const setValues = () => {
         props.setValues && props.setValues()
@@ -42,13 +37,13 @@ export const Btn = (props: BtnPropsType) => {
 
     const kindBtn = () => {
         switch (props.btn) {
-            case "inc":
+            case 'inc':
                 increaseCounter()
                 break
-            case "reset":
+            case 'reset':
                 resetCounter()
                 break
-            case "set":
+            case 'set':
                 setValues()
                 break
         }
@@ -58,7 +53,8 @@ export const Btn = (props: BtnPropsType) => {
         <div className={s.btn_container}>
             <button className={`${s.btn} ${disabledBtns ? s.btn_disabled : ''}`}
                     disabled={disabledBtns}
-                    onClick={kindBtn}>
+                    onClick={kindBtn}
+            >
                 {props.btn}
             </button>
         </div>

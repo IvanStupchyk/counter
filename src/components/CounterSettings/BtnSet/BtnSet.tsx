@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../../Counter/Buttons/Buttons.module.css"
+import s from "../../Counter/Buttons/Buttons.module.css";
 import {Btn} from "../../Counter/Buttons/Btn/Btn";
 
 export type ButtonsPropsType = {

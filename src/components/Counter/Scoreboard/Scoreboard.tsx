@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Scoreboard.module.css"
+import s from "./Scoreboard.module.css";
 
 type ScoreboardPropsType = {
     counter: number
@@ -21,7 +21,6 @@ export const Scoreboard = (props: ScoreboardPropsType) => {
                 {!props.changeValue && props.counter}
             </span>
             <p className={`${s.message_set_value} ${errorMessage && s.limit}`}> {errorMessage || props.changeValue && 'Enter values and press \'set\''}</p>
-
         </div>
     )
 }

@@ -3,8 +3,7 @@ import './App.css';
 import {Counter} from "./components/Counter/Counter";
 import {CounterSettings} from "./components/CounterSettings/CounterSettings";
 
-function App() {
-
+export const App = () => {
     const JsonValues = localStorage.getItem('Counter Values')
     const CounterValues = JsonValues && JSON.parse(JsonValues)
 
@@ -18,29 +17,19 @@ function App() {
 
     const [changeValue, setChangeValue] = useState<boolean>(false)
 
-    const getStateValues = (state: boolean) => {
-        setChangeValue(state)
-    }
+    const getStateValues = (state: boolean) => setChangeValue(state)
 
-    const increaseCounter = () => {
-        counter < maxValue && setCounter(prev => prev + 1)
-    }
+    const increaseCounter = () => counter < maxValue && setCounter(prev => prev + 1)
 
     const inputMaxError = intermediateMaxValue < 0 || intermediateMaxValue <= intermediateMinValue
     const inputMinError = intermediateMinValue < 0 || intermediateMinValue >= intermediateMaxValue
     const errorMessage = inputMinError || inputMaxError
 
-    const resetCounter = () => {
-        setCounter(minValue)
-    }
+    const resetCounter = () => setCounter(minValue)
 
-    const changeMaxValue = (value: string) => {
-        setIntermediateMaxValue(+value)
-    }
+    const changeMaxValue = (value: string) => setIntermediateMaxValue(+value)
 
-    const changeMinValue = (value: string) => {
-        setIntermediateMinValue(+value)
-    }
+    const changeMinValue = (value: string) => setIntermediateMinValue(+value)
 
     const setValues = () => {
         if (!errorMessage) {
@@ -82,4 +71,3 @@ function App() {
     );
 }
 
-export default App;
