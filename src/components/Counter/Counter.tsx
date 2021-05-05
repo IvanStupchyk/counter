@@ -1,42 +1,17 @@
 import React from "react";
 import s from "./Counter.module.css"
 import {Scoreboard} from "./Scoreboard/Scoreboard";
-import {Buttons} from "./Buttons/Buttons";
+import {Btn} from "./Btn/Btn";
 
-type CounterPropsType = {
-    counter: number
-    increaseCounter: () => void
-    resetCounter: () => void
-    maxValue: number
-    minValue: number
-    intermediateMinValue: number
-    intermediateMaxValue: number
-    inputMaxError: boolean
-    inputMinError: boolean
-    changeValue: boolean
-}
-
-export const Counter = (props: CounterPropsType) => {
+export const Counter = () => {
     return (
         <div className={s.counter_container}>
-            <Scoreboard counter={props.counter}
-                        minValue={props.minValue}
-                        maxValue={props.maxValue}
-                        intermediateMinValue={props.intermediateMinValue}
-                        intermediateMaxValue={props.intermediateMaxValue}
-                        inputMaxError={props.inputMaxError}
-                        inputMinError={props.inputMinError}
-                        changeValue={props.changeValue}
-            />
-            <Buttons increaseCounter={props.increaseCounter}
-                     resetCounter={props.resetCounter}
-                     counter={props.counter}
-                     maxValue={props.maxValue}
-                     minValue={props.minValue}
-                     intermediateMinValue={props.intermediateMinValue}
-                     intermediateMaxValue={props.intermediateMaxValue}
-                     changeValue={props.changeValue}
-            />
+            <Scoreboard/>
+
+            <div className={s.btn_container}>
+                <Btn btn={"inc"}/>
+                <Btn btn={"reset"}/>
+            </div>
         </div>
     )
 }

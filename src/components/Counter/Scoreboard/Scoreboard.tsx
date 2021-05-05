@@ -1,26 +1,31 @@
-import React from "react";
+import React, {useMemo} from "react";
 import s from "./Scoreboard.module.css";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "../../../redux/redux-store";
+import {initialStateType} from "../../../redux/counter-reducer";
+import {Dispatch} from "redux";
+import {actionsType, IncreaseCounterAC} from "../../../redux/actions";
 
-type ScoreboardPropsType = {
-    counter: number
-    maxValue: number
-    minValue: number
-    intermediateMinValue: number
-    intermediateMaxValue: number
-    inputMaxError: boolean
-    inputMinError: boolean
-    changeValue: boolean
-}
 
-export const Scoreboard = (props: ScoreboardPropsType) => {
-    const errorMessage = (props.inputMinError || props.inputMaxError) && 'Incorrect value'
+export const Scoreboard = () => {
+    const dispatch = useDispatch<Dispatch<actionsType>>()
+    const counter = useSelector<AppRootState, initialStateType>(state => state.counter)
+
+    const messageClass = `${s.message_set_value} ${counter.errorMessage && s.limit}`
+    const counterClass = `${s.amount} ${counter.counter === counter.maxValue && s.limit}`
+
+    const textMessage = counter.editMinMaxValue && (counter.errorMessage ? 'Incorrect value!' : 'Enter values and press \'set\'')
+
+    useMemo( () => {
+        dispatch(IncreaseCounterAC(counter.minValue))
+    }, [counter.editMinMaxValue])
 
     return (
         <div className={s.scoreboard_container}>
-            <span className={`${s.amount} ${props.counter === props.maxValue ? s.limit : ""}`}>
-                {!props.changeValue && props.counter}
+            <span className={counterClass}>
+                {!counter.editMinMaxValue && counter.counter }
             </span>
-            <p className={`${s.message_set_value} ${errorMessage && s.limit}`}> {errorMessage || props.changeValue && 'Enter values and press \'set\''}</p>
+            <p className={messageClass}>{textMessage}</p>
         </div>
     )
 }

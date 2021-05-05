@@ -1,46 +1,54 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 import s from "./ValueSettings.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {Dispatch} from "redux";
+import {
+    actionsType,
+    ChangeConditionErrorAC,
+    ChangeMaxValueAC,
+    ChangeMinValueAC,
+    EditMinMaxValuerAC
+} from "../../../redux/actions";
+import {AppRootState} from "../../../redux/redux-store";
+import {initialStateType} from "../../../redux/counter-reducer";
 
-type ValueSettingsPropsType = {
-    intermediateMinValue: number
-    intermediateMaxValue: number
-    changeMaxValue: (value: string) => void
-    changeMinValue: (value: string) => void
-    inputMaxError: boolean
-    inputMinError: boolean
-    getStateValues: (state: boolean) => void
-}
+export const ValueSettings = () => {
+    const dispatch = useDispatch<Dispatch<actionsType>>()
+    const counter = useSelector<AppRootState, initialStateType>(state => state.counter)
 
-export const ValueSettings = (props: ValueSettingsPropsType) => {
-    const classNameInputMax = `${s.input_value} ${props.inputMaxError ? s.incorrect_value : ''}`
-    const classNameInputMin = `${s.input_value} ${props.inputMinError ? s.incorrect_value : ''}`
+    useEffect(() => {
+        counter.minValue >= counter.maxValue || counter.minValue < 0 || counter.maxValue <= 0 ? dispatch(ChangeConditionErrorAC(true)) : dispatch(ChangeConditionErrorAC(false))
+    }, [counter.minValue, counter.maxValue])
+
+    const classNameInput = `${s.input_value} ${counter.errorMessage ? s.incorrect_value : ''}`
 
     const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeMaxValue(e.currentTarget.value)
-        props.getStateValues(true)
+        dispatch(ChangeMaxValueAC(+e.currentTarget.value))
+        dispatch(EditMinMaxValuerAC(true))
     }
 
     const changeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.changeMinValue(e.currentTarget.value)
-        props.getStateValues(true)
+        dispatch(ChangeMinValueAC(+e.currentTarget.value))
+        dispatch(EditMinMaxValuerAC(true))
     }
 
     return (
         <div className={s.value_container}>
             <div className={s.values_position}>
                 <p>max value:</p>
-
-                <input className={classNameInputMax} type={"number"}
+                <input type={"number"}
+                       className={classNameInput}
+                       value={counter.maxValue}
                        onChange={changeMaxValue}
-                       value={props.intermediateMaxValue}
                 />
             </div>
+
             <div className={s.values_position}>
                 <p>start value:</p>
-
-                <input className={classNameInputMin} type={"number"}
+                <input type={"number"}
+                       className={classNameInput}
+                       value={counter.minValue}
                        onChange={changeMinValue}
-                       value={props.intermediateMinValue}
                 />
             </div>
         </div>
