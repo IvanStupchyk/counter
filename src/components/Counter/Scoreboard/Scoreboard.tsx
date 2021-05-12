@@ -7,7 +7,7 @@ import {Dispatch} from "redux";
 import {actionsType, IncreaseCounterAC} from "../../../redux/actions";
 
 
-export const Scoreboard = () => {
+export const Scoreboard = React.memo(() => {
     const dispatch = useDispatch<Dispatch<actionsType>>()
     const counter = useSelector<AppRootState, initialStateType>(state => state.counter)
 
@@ -28,4 +28,4 @@ export const Scoreboard = () => {
             <p className={messageClass}>{textMessage}</p>
         </div>
     )
-}
+})

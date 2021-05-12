@@ -3,7 +3,7 @@ import s from "./Counter.module.css"
 import {Scoreboard} from "./Scoreboard/Scoreboard";
 import {Btn} from "./Btn/Btn";
 
-export const Counter = () => {
+export const Counter = React.memo(() => {
     return (
         <div className={s.counter_container}>
             <Scoreboard/>
@@ -14,4 +14,4 @@ export const Counter = () => {
             </div>
         </div>
     )
-}
+})

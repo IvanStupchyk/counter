@@ -4,7 +4,7 @@ import {ValueSettings} from "./ValueSettings/ValueSettings";
 import {Btn} from "../Counter/Btn/Btn";
 
 
-export const CounterSettings = () => {
+export const CounterSettings = React.memo( () => {
     return (
         <div className={s.counter_container}>
             <ValueSettings/>
@@ -14,4 +14,4 @@ export const CounterSettings = () => {
             </div>
         </div>
     )
-}
+})

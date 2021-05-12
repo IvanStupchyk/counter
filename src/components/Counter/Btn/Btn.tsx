@@ -10,7 +10,7 @@ type BtnPropsType = {
     btn: "inc" | "reset" | "set"
 }
 
-export const Btn = (props: BtnPropsType) => {
+export const Btn = React.memo((props: BtnPropsType) => {
     const dispatch = useDispatch<Dispatch<actionsType>>()
     const counter = useSelector<AppRootState, initialStateType>(state => state.counter)
 
@@ -44,5 +44,5 @@ export const Btn = (props: BtnPropsType) => {
             </button>
         </div>
     )
-}
+})
 

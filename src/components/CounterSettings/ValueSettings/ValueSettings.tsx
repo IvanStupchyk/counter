@@ -12,7 +12,7 @@ import {
 import {AppRootState} from "../../../redux/redux-store";
 import {initialStateType} from "../../../redux/counter-reducer";
 
-export const ValueSettings = () => {
+export const ValueSettings = React.memo(() => {
     const dispatch = useDispatch<Dispatch<actionsType>>()
     const counter = useSelector<AppRootState, initialStateType>(state => state.counter)
 
@@ -53,4 +53,4 @@ export const ValueSettings = () => {
             </div>
         </div>
     )
-}
+})
